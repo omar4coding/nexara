@@ -67,4 +67,16 @@ router.post('/login', async (req, res) => {
   }
 });
 
+const { protect } = require('../middleware/auth');
+
+// @route GET /api/auth/me
+router.get('/me', protect, async (req, res) => {
+  res.json({
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+    role: req.user.role
+  });
+});
+
 module.exports = router;
